@@ -63,6 +63,8 @@
     "@types/node": "^18.11.8",
     "@types/rewire": "^2.5.30",
     "@types/sinon": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
     "chai": "^4.3.4",
     "eslint": "^9.39.1",
     "eslint-config-hexo": "^6.0.0",
