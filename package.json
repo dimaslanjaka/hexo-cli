@@ -60,7 +60,7 @@
     "@types/command-exists": "^1.2.3",
     "@types/minimist": "^1.2.5",
     "@types/mocha": "^10.0.6",
-    "@types/node": "^18.11.8",
+    "@types/node": "^22.7.4",
     "@types/rewire": "^2.5.30",
     "@types/sinon": "^17.0.3",
     "chai": "^4.3.4",
