@@ -24,7 +24,9 @@ async function initConsole(this: Context, args: InitArgs) {
   const { log } = this;
 
   if (existsSync(target) && readdirSync(target).length !== 0) {
-    log.fatal(`${magenta(tildify(target))} not empty, please run \`hexo init\` on an empty folder and then copy your files into it`);
+    log.fatal(
+      `${magenta(tildify(target))} not empty, please run \`hexo init\` on an empty folder and then copy your files into it`
+    );
     await BlueBirdPromise.reject(new Error('target not empty'));
   }
 
@@ -43,10 +45,7 @@ async function initConsole(this: Context, args: InitArgs) {
     await copyAsset(target);
   }
 
-  await BlueBirdPromise.all([
-    removeGitDir(target),
-    removeGitModules(target)
-  ]);
+  await BlueBirdPromise.all([removeGitDir(target), removeGitModules(target)]);
   if (!args.install) return;
 
   log.info('Install dependencies');
@@ -97,14 +96,20 @@ async function copyAsset(target: string) {
 function removeGitDir(target: string) {
   const gitDir = join(target, '.git');
 
-  return stat(gitDir).catch(err => {
-    if (err && err.code === 'ENOENT') return;
-    throw err;
-  }).then(stats => {
-    if (stats) {
-      return stats.isDirectory() ? rmdir(gitDir) : unlink(gitDir);
-    }
-  }).then(() => readdir(target)).map(path => join(target, path)).filter(path => stat(path).then(stats => stats.isDirectory())).each(removeGitDir);
+  return stat(gitDir)
+    .catch((err) => {
+      if (err && err.code === 'ENOENT') return;
+      throw err;
+    })
+    .then((stats) => {
+      if (stats) {
+        return stats.isDirectory() ? rmdir(gitDir) : unlink(gitDir);
+      }
+    })
+    .then(() => readdir(target))
+    .map((path) => join(target, path))
+    .filter((path) => stat(path).then((stats) => stats.isDirectory()))
+    .each(removeGitDir);
 }
 
 async function removeGitModules(target: string) {
@@ -116,4 +121,4 @@ async function removeGitModules(target: string) {
   }
 }
 
-export = initConsole;
+export default initConsole;

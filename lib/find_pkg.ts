@@ -16,19 +16,21 @@ function findPkg(cwd: string, args: findPkgArgs = {}) {
 function checkPkg(path: string) {
   const pkgPath = join(path, 'package.json');
 
-  return readFile(pkgPath).then(content => {
-    const json = JSON.parse(content as string);
-    if (typeof json.hexo === 'object') return path;
-  }).catch(err => {
-    if (err && err.code === 'ENOENT') {
-      const parent = dirname(path);
+  return readFile(pkgPath)
+    .then((content) => {
+      const json = JSON.parse(content as string);
+      if (typeof json.hexo === 'object') return path;
+    })
+    .catch((err) => {
+      if (err && err.code === 'ENOENT') {
+        const parent = dirname(path);
 
-      if (parent === path) return;
-      return checkPkg(parent);
-    }
+        if (parent === path) return;
+        return checkPkg(parent);
+      }
 
-    throw err;
-  });
+      throw err;
+    });
 }
 
-export = findPkg;
+export default findPkg;

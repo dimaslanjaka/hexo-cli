@@ -31,39 +31,48 @@ function entry(cwd = process.cwd(), args) {
     process.exitCode = 2;
   }
 
-  return findPkg(cwd, args).then(path => {
-    if (!path) return;
+  return findPkg(cwd, args)
+    .then((path) => {
+      if (!path) return;
 
-    hexo.base_dir = path;
+      hexo.base_dir = path;
 
-    return loadModule(path, args).catch(err => {
-      log.error(err.message);
-      log.error('Local hexo loading failed in %s', magenta(tildify(path)));
-      log.error('Try running: \'rm -rf node_modules && npm install --force\'');
-      throw new HexoNotFoundError();
-    });
-  }).then(mod => {
-    if (mod) hexo = mod;
-    log = hexo.log;
+      return loadModule(path, args).catch((err) => {
+        log.error(err.message);
+        log.error('Local hexo loading failed in %s', magenta(tildify(path)));
+        log.error("Try running: 'rm -rf node_modules && npm install --force'");
+        throw new HexoNotFoundError();
+      });
+    })
+    .then((mod) => {
+      if (mod) hexo = mod;
+      log = hexo.log;
 
-    registerConsole(hexo);
+      registerConsole(hexo);
 
-    return hexo.init();
-  }).then(() => {
-    let cmd = 'help';
+      return hexo.init();
+    })
+    .then(() => {
+      let cmd = 'help';
 
-    if (!args.h && !args.help) {
-      const c = args._.shift();
-      if (c && hexo.extend.console.get(c)) cmd = c;
-    }
+      if (!args.h && !args.help) {
+        const c = args._.shift();
+        if (c && hexo.extend.console.get(c)) cmd = c;
+      }
 
-    watchSignal(hexo);
+      watchSignal(hexo);
 
-    return hexo.call(cmd, args).then(() => hexo.exit()).catch(err => hexo.exit(err).then(() => {
-      // `hexo.exit()` already dumped `err`
-      handleError(null);
-    }));
-  }).catch(handleError);
+      return hexo
+        .call(cmd, args)
+        .then(() => hexo.exit())
+        .catch((err) =>
+          hexo.exit(err).then(() => {
+            // `hexo.exit()` already dumped `err`
+            handleError(null);
+          })
+        );
+    })
+    .catch(handleError);
 }
 
 entry.console = {
@@ -95,4 +104,4 @@ function watchSignal(hexo: Context) {
   });
 }
 
-export = entry;
+export default entry;

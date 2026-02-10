@@ -51,8 +51,8 @@ class Context {
   exit(err?: Error) {
     if (err) {
       this.log.fatal(
-        {err},
-        'Something\'s wrong. Maybe you can find the solution here: %s',
+        { err },
+        "Something's wrong. Maybe you can find the solution here: %s",
         underline('https://hexo.io/docs/troubleshooting.html')
       );
     }
@@ -65,4 +65,4 @@ class Context {
   }
 }
 
-export = Context;
+export default Context;
