@@ -1,5 +1,5 @@
 import logger from 'hexo-log';
-import { underline } from 'picocolors';
+import * as picocolors from 'picocolors';
 import Promise from 'bluebird';
 import ConsoleExtend from './extend/console.js';
 
@@ -53,7 +53,7 @@ class Context {
       this.log.fatal(
         { err },
         "Something's wrong. Maybe you can find the solution here: %s",
-        underline('https://hexo.io/docs/troubleshooting.html')
+        picocolors.underline('https://hexo.io/docs/troubleshooting.html')
       );
     }
 
