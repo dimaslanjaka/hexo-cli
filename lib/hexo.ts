@@ -1,17 +1,16 @@
-import { magenta } from 'picocolors';
+import * as picocolors from 'picocolors';
 import tildify from 'tildify';
 import Promise from 'bluebird';
-import Context from './context';
-import findPkg from './find_pkg';
-import goodbye from './goodbye';
+import Context from './context.js';
+import findPkg from './find_pkg.js';
+import goodbye from './goodbye.js';
 import minimist from 'minimist';
 import resolve from 'resolve';
 import { camelCaseKeys } from 'hexo-util';
-// eslint-disable-next-line n/no-missing-import
-import registerConsole from './console';
-import helpConsole from './console/help';
-import initConsole from './console/init';
-import versionConsole from './console/version';
+import registerConsole from './console/index.js';
+import helpConsole from './console/help.js';
+import initConsole from './console/init.js';
+import versionConsole from './console/version.js';
 
 class HexoNotFoundError extends Error {}
 
@@ -40,7 +39,7 @@ function entry(cwd = process.cwd(), args) {
 
       return loadModule(path, args).catch((err) => {
         log.error(err.message);
-        log.error('Local hexo loading failed in %s', magenta(tildify(path)));
+        log.error('Local hexo loading failed in %s', picocolors.magenta(tildify(path)));
         log.error("Try running: 'rm -rf node_modules && npm install --force'");
         throw new HexoNotFoundError();
       });
