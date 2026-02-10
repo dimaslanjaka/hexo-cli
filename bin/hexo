@@ -4,13 +4,30 @@
 'use strict';
 
 // Detect runtime: if `require` is available, we're in CommonJS; otherwise use ESM dynamic import.
-if (typeof require === 'function') {
-  require('../dist/hexo.cjs');
+if (typeof require === 'function' && typeof module === 'object' && module.exports) {
+  console.log('Running in CommonJS environment');
+  require('../dist/hexo.cjs')();
 } else {
-  // Use dynamic import in ESM environments. Start the module and handle errors.
-  void import('../dist/hexo.js').catch((err) => {
-    // eslint-disable-next-line no-console
-    console.error(err);
-    process.exit(1);
-  });
+  // ESM runtime: prefer loading the CommonJS bundle via `createRequire`.
+  (async () => {
+    try {
+      console.log('Running in ESM environment with CommonJS bundle');
+      const { createRequire } = await import('module');
+      const requireFunc = createRequire(import.meta.url);
+      requireFunc('../dist/hexo.cjs')();
+    } catch (err) {
+      console.log('Falling back to ESM dynamic import');
+      // Fallback to ESM dynamic import if requiring the CJS bundle fails.
+      await import('../dist/hexo.js')
+        .then((lib) => {
+          const mod = lib.default || lib;
+          mod();
+        })
+        .catch((e) => {
+          // eslint-disable-next-line no-console
+          console.error(e);
+          process.exit(1);
+        });
+    }
+  })();
 }
