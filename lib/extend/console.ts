@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
 import abbrev from 'abbrev';
-import type { Options, Callback, Store, Alias } from '../types';
+import type { Options, Callback, Store, Alias } from '../types.js';
 
 class Console {
   store: Store;

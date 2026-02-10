@@ -1,11 +1,11 @@
 import BlueBirdPromise from 'bluebird';
 import { join, resolve } from 'path';
-import { magenta } from 'picocolors';
+import * as picocolors from 'picocolors';
 import { existsSync, readdirSync, rmdir, unlink, copyDir, readdir, stat } from 'hexo-fs';
 import tildify from 'tildify';
 import spawn from 'hexo-util/dist/spawn'; // for rewire
 import { sync as commandExistsSync } from 'command-exists';
-import type Context from '../context';
+import type Context from '../context.js';
 
 const ASSET_DIR = join(__dirname, '../../assets');
 const GIT_REPO_URL = 'https://github.com/hexojs/hexo-starter.git';
@@ -25,7 +25,7 @@ async function initConsole(this: Context, args: InitArgs) {
 
   if (existsSync(target) && readdirSync(target).length !== 0) {
     log.fatal(
-      `${magenta(tildify(target))} not empty, please run \`hexo init\` on an empty folder and then copy your files into it`
+      `${picocolors.magenta(tildify(target))} not empty, please run \`hexo init\` on an empty folder and then copy your files into it`
     );
     await BlueBirdPromise.reject(new Error('target not empty'));
   }

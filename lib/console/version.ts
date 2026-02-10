@@ -2,7 +2,7 @@ import os from 'os';
 const pkg = require('../../package.json');
 import BlueBirdPromise from 'bluebird';
 import { spawn } from 'hexo-util';
-import type Context from '../context';
+import type Context from '../context.js';
 
 async function versionConsole(this: Context) {
   const { versions, platform } = process;

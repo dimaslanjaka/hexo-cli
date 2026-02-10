@@ -1,9 +1,9 @@
-import { underline, bold } from 'picocolors';
+import * as picocolors from 'picocolors';
 import { readFile } from 'hexo-fs';
 import { join } from 'path';
 import Promise from 'bluebird';
-import type Context from '../context';
-import type { Callback, Store, Command } from '../types';
+import type Context from '../context.js';
+import type { Callback, Store, Command } from '../types.js';
 
 const COMPLETION_DIR = join(__dirname, '../../completion');
 
@@ -78,7 +78,7 @@ function printAllHelp(list: Store) {
   ]);
 
   console.log("For more help, you can use 'hexo help [command]' for the detailed information");
-  console.log('or you can check the docs:', underline('https://hexo.io/docs/'));
+  console.log('or you can check the docs:', picocolors.underline('https://hexo.io/docs/'));
 
   return Promise.resolve();
 }
@@ -103,7 +103,7 @@ function printList(title: string, list: Command[]) {
   for (let i = 0; i < length; i++) {
     const { description = list[i].desc } = list[i];
     const pad = ' '.repeat(maxLen - lengths[i] + 2);
-    str += `  ${bold(list[i].name)}${pad}${description}\n`;
+    str += `  ${picocolors.bold(list[i].name)}${pad}${description}\n`;
   }
 
   console.log(str);

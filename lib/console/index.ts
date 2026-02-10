@@ -1,7 +1,7 @@
 import type Context from '../context';
-import helpConsole from './help';
-import initConsole from './init';
-import versionConsole from './version';
+import helpConsole from './help.js';
+import initConsole from './init.js';
+import versionConsole from './version.js';
 
 export default function (ctx: Context) {
   const { console } = ctx.extend;
