@@ -3,6 +3,7 @@ import { camelCaseKeys } from 'hexo-util';
 import minimist from 'minimist';
 import picocolors from 'picocolors';
 import resolve from 'resolve';
+import { pathToFileURL } from 'url';
 import tildify from 'tildify';
 import helpConsole from './console/help.js';
 import registerConsole from './console/index.js';
@@ -86,9 +87,33 @@ entry.version = '__VERSION__';
 function loadModule(path: string, args: Record<string, any>) {
   return Promise.try(() => {
     const modulePath = resolve.sync('hexo', { basedir: path });
-    const Hexo = require(modulePath);
+    // If `require` is available, try it first. Otherwise fall back to dynamic import.
+    if (typeof require !== 'undefined') {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const Hexo = require(modulePath);
+        const Ctor = Hexo && (Hexo.default || Hexo);
+        return new Ctor(path, args);
+      } catch (err: any) {
+        // If the package is an ES module, Node throws ERR_REQUIRE_ESM for require()
+        if (err && err.code === 'ERR_REQUIRE_ESM') {
+          const url = pathToFileURL(modulePath).href;
+          return import(url).then((mod) => {
+            const Ctor = mod && (mod.default || mod);
+            return new Ctor(path, args);
+          });
+        }
 
-    return new Hexo(path, args);
+        throw err;
+      }
+    }
+
+    // `require` is not defined (for example, when running as an ES module).
+    const url = pathToFileURL(modulePath).href;
+    return import(url).then((mod) => {
+      const Ctor = mod && (mod.default || mod);
+      return new Ctor(path, args);
+    });
   });
 }
 
