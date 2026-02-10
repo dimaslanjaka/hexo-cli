@@ -1,5 +1,5 @@
 import os from 'os';
-const pkg = require('../../package.json');
+import pkg from '../../package.json' with { type: 'json' };
 import BlueBirdPromise from 'bluebird';
 import { spawn } from 'hexo-util';
 import type Context from '../context.js';
