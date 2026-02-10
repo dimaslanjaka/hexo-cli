@@ -11,6 +11,7 @@ import registerConsole from './console/index.js';
 import helpConsole from './console/help.js';
 import initConsole from './console/init.js';
 import versionConsole from './console/version.js';
+import pkg from '../package.json' with { type: 'json' };
 
 class HexoNotFoundError extends Error {}
 
@@ -81,7 +82,7 @@ entry.console = {
   version: versionConsole
 };
 
-entry.version = require('../package.json').version as string;
+entry.version = pkg.version;
 
 function loadModule(path, args) {
   return Promise.try(() => {
