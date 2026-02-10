@@ -28,6 +28,9 @@ const externalDeps = [...Object.keys(packageJson.dependencies), ...Object.keys(p
  */
 function buildTsup() {
   const baseConfig = defineConfig({
+    define: {
+      __VERSION__: JSON.stringify(packageJson.version)
+    },
     entry: ['lib/**/*.ts'],
     splitting: true,
     treeshake: true,
@@ -35,7 +38,8 @@ function buildTsup() {
     shims: true,
     sourcemap: true,
     removeNodeProtocol: true,
-    clean: false,
+    clean: true,
+    // skipNodeModulesBundle: true,
     external: externalDeps,
     format: ['esm', 'cjs'],
     dts: true,
@@ -47,7 +51,33 @@ function buildTsup() {
         default:
           return { js: '.js', dts: '.d.ts' };
       }
-    }
+    },
+    plugins: [
+      {
+        // https://github.com/egoist/tsup/issues/953#issuecomment-2132576167
+        // ensuring that all local requires in `.cjs` files import from `.cjs` files.
+        // require('./path') → require('./path.cjs') in `.cjs` files
+        name: 'fix-cjs-require',
+        renderChunk(_, { code }) {
+          if (this.format === 'cjs') {
+            const regex = /require\("(?<import>\.\/.+)"\)/g;
+            // TODO: should do nothing if file already ends in .cjs
+            // TODO: could be more resilient for `"` vs `'` imports
+            return { code: code.replace(regex, "require('$<import>.cjs')") };
+          }
+        }
+      },
+      {
+        name: 'fix-cjs',
+        renderChunk(_, chunk) {
+          if (this.format === 'cjs') {
+            // replace `from '...js'` with `from '...cjs'` for cjs imports & exports
+            const code = chunk.code.replace(/from ['"](.*)\.js['"]/g, "from '$1.cjs'");
+            return { code };
+          }
+        }
+      }
+    ]
   });
   return build(baseConfig);
 }

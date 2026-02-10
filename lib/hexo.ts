@@ -1,17 +1,16 @@
-import * as picocolors from 'picocolors';
-import tildify from 'tildify';
 import Promise from 'bluebird';
+import { camelCaseKeys } from 'hexo-util';
+import minimist from 'minimist';
+import * as picocolors from 'picocolors';
+import resolve from 'resolve';
+import tildify from 'tildify';
+import helpConsole from './console/help.js';
+import registerConsole from './console/index.js';
+import initConsole from './console/init.js';
+import versionConsole from './console/version.js';
 import Context from './context.js';
 import findPkg from './find_pkg.js';
 import goodbye from './goodbye.js';
-import minimist from 'minimist';
-import resolve from 'resolve';
-import { camelCaseKeys } from 'hexo-util';
-import registerConsole from './console/index.js';
-import helpConsole from './console/help.js';
-import initConsole from './console/init.js';
-import versionConsole from './console/version.js';
-import pkg from '../package.json' with { type: 'json' };
 
 class HexoNotFoundError extends Error {}
 
@@ -82,7 +81,7 @@ entry.console = {
   version: versionConsole
 };
 
-entry.version = pkg.version;
+entry.version = '__VERSION__';
 
 function loadModule(path: string, args: Record<string, any>) {
   return Promise.try(() => {
