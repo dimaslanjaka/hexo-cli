@@ -2,6 +2,7 @@
   "name": "hexo-cli",
   "version": "4.3.2",
   "description": "Command line interface for Hexo",
+  "type": "module",
   "main": "dist/hexo",
   "bin": {
     "hexo": "./bin/hexo"
@@ -15,8 +16,8 @@
   "types": "./dist/hexo.d.ts",
   "scripts": {
     "prepublishOnly": "npm install && npm run clean && npm run build",
-    "build": "tsc -b",
-    "clean": "tsc -b --clean",
+    "build": "node build.js && node scripts/build_exports.mjs",
+    "clean": "rimraf dist && npm run build",
     "eslint": "eslint lib test",
     "pretest": "npm run clean && npm run build",
     "test": "mocha test/**/*.ts --require ts-node/register",
@@ -63,6 +64,7 @@
     "@types/node": "^22.7.4",
     "@types/rewire": "^2.5.30",
     "@types/sinon": "^17.0.3",
+    "binary-collections": "^2.0.10",
     "chai": "^4.3.4",
     "eslint": "^9.39.1",
     "eslint-config-hexo": "^6.0.0",
@@ -72,9 +74,67 @@
     "rewire": "^9.0.1",
     "sinon": "^17.0.1",
     "ts-node": "^10.9.1",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=20"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/hexo.js",
+      "require": "./dist/hexo.cjs",
+      "types": "./dist/hexo.d.ts"
+    },
+    "./dist/console/help": {
+      "import": "./dist/console/help.js",
+      "require": "./dist/console/help.cjs",
+      "types": "./dist/console/help.d.ts"
+    },
+    "./dist/console/index": {
+      "import": "./dist/console/index.js",
+      "require": "./dist/console/index.cjs",
+      "types": "./dist/console/index.d.ts"
+    },
+    "./dist/console/init": {
+      "import": "./dist/console/init.js",
+      "require": "./dist/console/init.cjs",
+      "types": "./dist/console/init.d.ts"
+    },
+    "./dist/console/version": {
+      "import": "./dist/console/version.js",
+      "require": "./dist/console/version.cjs",
+      "types": "./dist/console/version.d.ts"
+    },
+    "./dist/context": {
+      "import": "./dist/context.js",
+      "require": "./dist/context.cjs",
+      "types": "./dist/context.d.ts"
+    },
+    "./dist/extend/console": {
+      "import": "./dist/extend/console.js",
+      "require": "./dist/extend/console.cjs",
+      "types": "./dist/extend/console.d.ts"
+    },
+    "./dist/find_pkg": {
+      "import": "./dist/find_pkg.js",
+      "require": "./dist/find_pkg.cjs",
+      "types": "./dist/find_pkg.d.ts"
+    },
+    "./dist/goodbye": {
+      "import": "./dist/goodbye.js",
+      "require": "./dist/goodbye.cjs",
+      "types": "./dist/goodbye.d.ts"
+    },
+    "./dist/hexo": {
+      "import": "./dist/hexo.js",
+      "require": "./dist/hexo.cjs",
+      "types": "./dist/hexo.d.ts"
+    },
+    "./dist/types": {
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs",
+      "types": "./dist/types.d.ts"
+    }
   }
 }
