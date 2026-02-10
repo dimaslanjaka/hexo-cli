@@ -1,7 +1,7 @@
 import logger from 'hexo-log';
 import { underline } from 'picocolors';
 import Promise from 'bluebird';
-import ConsoleExtend from './extend/console';
+import ConsoleExtend from './extend/console.js';
 
 // a stub Hexo object
 // see `hexojs/hexo/lib/hexo/index.ts`
