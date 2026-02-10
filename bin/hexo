@@ -3,4 +3,14 @@
 // eslint-disable-next-line strict
 'use strict';
 
-require('../dist/hexo')();
+// Detect runtime: if `require` is available, we're in CommonJS; otherwise use ESM dynamic import.
+if (typeof require === 'function') {
+  require('../dist/hexo.cjs');
+} else {
+  // Use dynamic import in ESM environments. Start the module and handle errors.
+  void import('../dist/hexo.js').catch((err) => {
+    // eslint-disable-next-line no-console
+    console.error(err);
+    process.exit(1);
+  });
+}
