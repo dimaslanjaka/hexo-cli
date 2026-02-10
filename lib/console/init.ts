@@ -6,8 +6,9 @@ import tildify from 'tildify';
 import spawn from 'hexo-util/dist/spawn'; // for rewire
 import { sync as commandExistsSync } from 'command-exists';
 import type Context from '../context.js';
+import * as hexoUtils from 'hexo-util';
 
-const ASSET_DIR = join(__dirname, '../../assets');
+const ASSET_DIR = join(hexoUtils.getDirname(), '../../assets');
 const GIT_REPO_URL = 'https://github.com/hexojs/hexo-starter.git';
 
 interface InitArgs {

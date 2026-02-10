@@ -2,10 +2,11 @@ import * as picocolors from 'picocolors';
 import { readFile } from 'hexo-fs';
 import { join } from 'path';
 import Promise from 'bluebird';
+import * as hexoUtils from 'hexo-util';
 import type Context from '../context.js';
 import type { Callback, Store, Command } from '../types.js';
 
-const COMPLETION_DIR = join(__dirname, '../../completion');
+const COMPLETION_DIR = join(hexoUtils.getDirname(), '../../completion');
 
 interface HelpArgs {
   _: string[];
