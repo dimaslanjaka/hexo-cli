@@ -3,9 +3,10 @@
   "version": "4.3.2",
   "description": "Command line interface for Hexo",
   "type": "module",
-  "main": "dist/hexo",
+  "main": "dist/hexo.cjs",
+  "module": "dist/hexo.js",
   "bin": {
-    "hexo": "./bin/hexo"
+    "hexo": "./bin/hexo.js"
   },
   "files": [
     "dist/**",
