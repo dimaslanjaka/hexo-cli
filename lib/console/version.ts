@@ -35,4 +35,4 @@ async function versionConsole(this: Context) {
   await BlueBirdPromise.resolve();
 }
 
-export = versionConsole;
+export default versionConsole;

@@ -32,10 +32,12 @@ class Console {
         if (typeof options === 'function') {
           fn = options as Callback;
 
-          if (typeof desc === 'object') { // name, options, fn
+          if (typeof desc === 'object') {
+            // name, options, fn
             options = desc;
             desc = '';
-          } else { // name, desc, fn
+          } else {
+            // name, desc, fn
             options = {};
           }
         } else {
@@ -68,4 +70,4 @@ class Console {
   }
 }
 
-export = Console;
+export default Console;

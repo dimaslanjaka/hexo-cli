@@ -69,15 +69,15 @@ function printAllHelp(list: Store) {
   printList('Commands', commands);
 
   printList('Global Options', [
-    {name: '--config', desc: 'Specify config file instead of using _config.yml'},
-    {name: '--cwd', desc: 'Specify the CWD'},
-    {name: '--debug', desc: 'Display all verbose messages in the terminal'},
-    {name: '--draft', desc: 'Display draft posts'},
-    {name: '--safe', desc: 'Disable all plugins and scripts'},
-    {name: '--silent', desc: 'Hide output on console'}
+    { name: '--config', desc: 'Specify config file instead of using _config.yml' },
+    { name: '--cwd', desc: 'Specify the CWD' },
+    { name: '--debug', desc: 'Display all verbose messages in the terminal' },
+    { name: '--draft', desc: 'Display draft posts' },
+    { name: '--safe', desc: 'Disable all plugins and scripts' },
+    { name: '--silent', desc: 'Hide output on console' }
   ]);
 
-  console.log('For more help, you can use \'hexo help [command]\' for the detailed information');
+  console.log("For more help, you can use 'hexo help [command]' for the detailed information");
   console.log('or you can check the docs:', underline('https://hexo.io/docs/'));
 
   return Promise.resolve();
@@ -94,7 +94,7 @@ function printList(title: string, list: Command[]) {
     return 0;
   });
 
-  const lengths = list.map(item => item.name.length);
+  const lengths = list.map((item) => item.name.length);
   const maxLen = lengths.reduce((prev, current) => Math.max(prev, current));
 
   let str = `${title}:\n`;
@@ -118,9 +118,9 @@ function printConsoleList(list: Store) {
 }
 
 function printCompletion(type: string) {
-  return readFile(join(COMPLETION_DIR, type)).then(content => {
+  return readFile(join(COMPLETION_DIR, type)).then((content) => {
     console.log(content);
   });
 }
 
-export = helpConsole;
+export default helpConsole;
