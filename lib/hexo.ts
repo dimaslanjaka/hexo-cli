@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 import { camelCaseKeys } from 'hexo-util';
 import minimist from 'minimist';
-import * as picocolors from 'picocolors';
+import picocolors from 'picocolors';
 import resolve from 'resolve';
 import tildify from 'tildify';
 import helpConsole from './console/help.js';
