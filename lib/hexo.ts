@@ -33,19 +33,20 @@ function entry(cwd = process.cwd(), args: Record<string, any> | null = null) {
   }
 
   return findPkg(cwd, args)
-    .then((path) => {
+    .then((path: string) => {
       if (!path) return;
 
       hexo.base_dir = path;
 
       return loadModule(path, args).catch((err: Error) => {
         log.error(err.message);
+        log.error(err.stack);
         log.error('Local hexo loading failed in %s', picocolors.magenta(tildify(path)));
         log.error("Try running: 'rm -rf node_modules && npm install --force'");
         throw new HexoNotFoundError();
       });
     })
-    .then((mod) => {
+    .then((mod: Context) => {
       if (mod) hexo = mod;
       log = hexo.log;
 
