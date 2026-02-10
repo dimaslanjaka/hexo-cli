@@ -86,6 +86,11 @@
       "require": "./dist/hexo.cjs",
       "types": "./dist/hexo.d.ts"
     },
+    "./dist/console": {
+      "import": "./dist/console/index.js",
+      "require": "./dist/console/index.cjs",
+      "types": "./dist/console/index.d.ts"
+    },
     "./dist/console/help": {
       "import": "./dist/console/help.js",
       "require": "./dist/console/help.cjs",
