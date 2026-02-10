@@ -31,6 +31,20 @@ function addExport(relPath) {
   };
 }
 
+function addDirExport(relDir) {
+  const normalized = relDir.split(path.sep).join('/');
+  const key = `./dist/${normalized}`;
+  const imp = `./dist/${normalized}/index.js`;
+  const req = `./dist/${normalized}/index.cjs`;
+  const types = `./dist/${normalized}/index.d.ts`;
+
+  defaultExports[key] = {
+    import: imp,
+    require: req,
+    types
+  };
+}
+
 function processEntry(rel) {
   const full = path.join(libDir, rel);
   const stat = fs.statSync(full);
@@ -45,6 +59,13 @@ function processEntry(rel) {
       fs.readdirSync(full).forEach((sub) => {
         processEntry(path.join(rel, sub));
       });
+
+      // If the directory contains an index file, add a folder export pointing to it
+      const indexTs = path.join(full, 'index.ts');
+      const indexJs = path.join(full, 'index.js');
+      if (fs.existsSync(indexTs) || fs.existsSync(indexJs)) {
+        addDirExport(rel);
+      }
     }
     return;
   }
