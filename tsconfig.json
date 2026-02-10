@@ -1,21 +1,15 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2015",
     "target": "es6",
     "sourceMap": true,
     "outDir": "dist",
     "declaration": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "types": [
-      "node",
-      "mocha"
-    ]
+    "types": ["node", "mocha"],
+    "moduleResolution": "bundler"
   },
-  "include": [
-    "lib/hexo.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["lib/hexo.ts"],
+  "exclude": ["node_modules"]
 }
