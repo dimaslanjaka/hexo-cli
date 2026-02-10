@@ -15,7 +15,7 @@ import pkg from '../package.json' with { type: 'json' };
 
 class HexoNotFoundError extends Error {}
 
-function entry(cwd = process.cwd(), args) {
+function entry(cwd = process.cwd(), args: Record<string, any> | null = null) {
   args = camelCaseKeys(args || minimist(process.argv.slice(2), { string: ['_', 'p', 'path', 's', 'slug'] }));
 
   let hexo = new Context(cwd, args);
@@ -24,7 +24,7 @@ function entry(cwd = process.cwd(), args) {
   // Change the title in console
   process.title = 'hexo';
 
-  function handleError(err) {
+  function handleError(err: Error | null) {
     if (err && !(err instanceof HexoNotFoundError)) {
       log.fatal(err);
     }
@@ -38,7 +38,7 @@ function entry(cwd = process.cwd(), args) {
 
       hexo.base_dir = path;
 
-      return loadModule(path, args).catch((err) => {
+      return loadModule(path, args).catch((err: Error) => {
         log.error(err.message);
         log.error('Local hexo loading failed in %s', picocolors.magenta(tildify(path)));
         log.error("Try running: 'rm -rf node_modules && npm install --force'");
@@ -66,7 +66,7 @@ function entry(cwd = process.cwd(), args) {
       return hexo
         .call(cmd, args)
         .then(() => hexo.exit())
-        .catch((err) =>
+        .catch((err: Error) =>
           hexo.exit(err).then(() => {
             // `hexo.exit()` already dumped `err`
             handleError(null);
@@ -84,7 +84,7 @@ entry.console = {
 
 entry.version = pkg.version;
 
-function loadModule(path, args) {
+function loadModule(path: string, args: Record<string, any>) {
   return Promise.try(() => {
     const modulePath = resolve.sync('hexo', { basedir: path });
     const Hexo = require(modulePath);
