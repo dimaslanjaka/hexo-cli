@@ -1,4 +1,4 @@
-import * as picocolors from 'picocolors';
+import picocolors from 'picocolors';
 import { readFile } from 'hexo-fs';
 import { join } from 'path';
 import Promise from 'bluebird';

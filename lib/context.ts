@@ -1,5 +1,5 @@
 import logger from 'hexo-log';
-import * as picocolors from 'picocolors';
+import picocolors from 'picocolors';
 import Promise from 'bluebird';
 import ConsoleExtend from './extend/console.js';
 

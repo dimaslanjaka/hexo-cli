@@ -1,6 +1,6 @@
 import BlueBirdPromise from 'bluebird';
 import { join, resolve } from 'path';
-import * as picocolors from 'picocolors';
+import picocolors from 'picocolors';
 import { existsSync, readdirSync, rmdir, unlink, copyDir, readdir, stat } from 'hexo-fs';
 import tildify from 'tildify';
 import spawn from 'hexo-util/dist/spawn'; // for rewire
