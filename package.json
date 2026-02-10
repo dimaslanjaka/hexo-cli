@@ -51,7 +51,7 @@
     "hexo-log": "^4.0.1",
     "hexo-util": "^4.0.0",
     "minimist": "^1.2.5",
-    "picocolors": "^1.0.0",
+    "picocolors": "^1.1.1",
     "resolve": "^1.20.0",
     "tildify": "^2.0.0"
   },
