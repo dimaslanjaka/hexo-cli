@@ -48,12 +48,11 @@
     "bluebird": "^3.7.2",
     "command-exists": "^1.2.9",
     "hexo-fs": "^5.0.1",
-    "hexo-log": "^4.0.1",
-    "hexo-util": "^4.0.0",
+    "hexo-log": "^4.1.0",
+    "hexo-util": "https://github.com/dimaslanjaka/hexo-util/raw/378f4df/release/hexo-util.tgz",
     "minimist": "^1.2.5",
     "picocolors": "^1.1.1",
-    "resolve": "^1.20.0",
-    "tildify": "^2.0.0"
+    "resolve": "^1.20.0"
   },
   "devDependencies": {
     "@types/abbrev": "^1.1.5",

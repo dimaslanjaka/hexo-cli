@@ -1,9 +1,8 @@
 import BlueBirdPromise from 'bluebird';
 import { join, resolve } from 'path';
 import picocolors from 'picocolors';
-import { existsSync, readdirSync, rmdir, unlink, copyDir, readdir, stat } from 'hexo-fs';
-import tildify from 'tildify';
-import spawn from 'hexo-util/dist/spawn'; // for rewire
+import { copyDir, existsSync, readdir, readdirSync, rmdir, stat, unlink } from 'hexo-fs';
+import { spawn, tildify } from 'hexo-util';
 import { sync as commandExistsSync } from 'command-exists';
 import type Context from '../context.js';
 import * as hexoUtils from 'hexo-util';
@@ -116,7 +115,7 @@ function removeGitDir(target: string) {
 async function removeGitModules(target: string) {
   try {
     await unlink(join(target, '.gitmodules'));
-  } catch (err) {
+  } catch (err: any) {
     if (err && err.code === 'ENOENT') return;
     throw err;
   }

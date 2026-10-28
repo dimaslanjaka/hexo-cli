@@ -1,10 +1,9 @@
 import Promise from 'bluebird';
-import { camelCaseKeys } from 'hexo-util';
+import { camelCaseKeys, tildify } from 'hexo-util';
 import minimist from 'minimist';
 import picocolors from 'picocolors';
 import resolve from 'resolve';
 import { pathToFileURL } from 'url';
-import tildify from 'tildify';
 import helpConsole from './console/help.js';
 import registerConsole from './console/index.js';
 import initConsole from './console/init.js';
