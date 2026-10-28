@@ -83,6 +83,9 @@
   "engines": {
     "node": ">=20"
   },
+  "resolutions": {
+    "got": "11.8.2"
+  },
   "exports": {
     ".": {
       "import": "./dist/hexo.js",
