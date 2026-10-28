@@ -26,9 +26,14 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
-          cache: npm
-          cache-dependency-path: "package.json"
-
+      - name: Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            dist
+            tmp
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: npm install
       - name: Test
@@ -44,9 +49,14 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: ${{env.default_node_version}}
-          cache: npm
-          cache-dependency-path: "package.json"
-
+      - name: Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            dist
+            tmp
+          key: ${{ runner.os }}-node-${{env.default_node_version}}-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: npm install
       - name: Coverage
@@ -65,8 +75,14 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: ${{env.default_node_version}}
-          cache: npm
-          cache-dependency-path: "package.json"
+      - name: Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            dist
+            tmp
+          key: ${{ runner.os }}-node-${{env.default_node_version}}-build-${{ hashFiles('**/package.json') }}
 
       - name: Install Dependencies
         run: npm install
@@ -82,8 +98,14 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: ${{env.default_node_version}}
-          cache: npm
-          cache-dependency-path: "package.json"
+      - name: Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            dist
+            tmp
+          key: ${{ runner.os }}-node-${{env.default_node_version}}-lint-${{ hashFiles('**/package.json') }}
 
       - name: Install Dependencies
         run: npm install
