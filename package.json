@@ -21,8 +21,9 @@
     "clean": "rimraf dist",
     "eslint": "eslint lib test",
     "pretest": "npm run clean && npm run build",
-    "test": "mocha test/**/*.ts --require ts-node/register",
-    "test-cov": "nyc --reporter=lcovonly npm test",
+    "test": "mocha --require ts-node/register --require scripts/resolve-ts.cjs",
+    "test-all": "npm run test -- test/**/*.ts",
+    "test-cov": "nyc --reporter=lcovonly npm run test-all",
     "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master",
     "pack": "npx -y tarball-packer --yarn --filename hexo-cli --normalize-resolutions"
   },
