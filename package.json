@@ -24,7 +24,7 @@
     "test": "mocha --require ts-node/register --require scripts/resolve-ts.cjs",
     "test-all": "npm run test -- test/**/*.ts",
     "test-cov": "nyc --reporter=lcovonly npm run test-all",
-    "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master",
+    "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master && husky",
     "pack": "npx -y tarball-packer --yarn --filename hexo-cli --normalize-resolutions"
   },
   "repository": {
@@ -74,6 +74,8 @@
     "eslint": "^9.39.1",
     "eslint-config-hexo": "^6.0.0",
     "hexo-renderer-marked": "^7.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
     "mocha": "^11.7.5",
     "nyc": "^15.1.0",
     "rewire": "^9.0.1",
@@ -84,6 +86,11 @@
   },
   "engines": {
     "node": ">=24"
+  },
+  "lint-staged": {
+    "*.{ts,js,cts,cjs,mjs}": [
+      "eslint --fix"
+    ]
   },
   "resolutions": {
     "got": "11.8.2"
