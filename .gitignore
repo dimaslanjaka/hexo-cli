@@ -11,3 +11,4 @@ package-lock.json
 *.txt
 coverage/
 .codebase-memory/
+.env
