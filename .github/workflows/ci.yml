@@ -22,6 +22,8 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v7
+        with:
+          submodules: recursive
       - name: Setup Node.js ${{ matrix.node-version }} and Cache
         uses: actions/setup-node@v7
         with:
@@ -46,6 +48,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          submodules: recursive
       - name: Setup Node.js ${{env.default_node_version}} and Cache
         uses: actions/setup-node@v7
         with:
@@ -73,6 +77,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          submodules: recursive
       - name: Setup Node.js ${{env.default_node_version}} and Cache
         uses: actions/setup-node@v7
         with:
@@ -97,6 +103,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          submodules: recursive
       - name: Setup Node.js ${{env.default_node_version}} and Cache
         uses: actions/setup-node@v7
         with:
