@@ -4,9 +4,12 @@
     "target": "es6",
     "sourceMap": true,
     "outDir": "dist",
+    "rootDir": ".",
     "declaration": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "strict": true,
     "types": ["node", "mocha"],
     "moduleResolution": "bundler"
   },
