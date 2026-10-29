@@ -18,12 +18,13 @@
   "scripts": {
     "prepublishOnly": "npm install && npm run clean && npm run build",
     "build": "node build.js && node scripts/build_exports.mjs",
-    "clean": "rimraf dist && npm run build",
+    "clean": "rimraf dist",
     "eslint": "eslint lib test",
     "pretest": "npm run clean && npm run build",
     "test": "mocha test/**/*.ts --require ts-node/register",
     "test-cov": "nyc --reporter=lcovonly npm test",
-    "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master"
+    "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master",
+    "pack": "npx -y tarball-packer --yarn --filename hexo-cli --normalize-resolutions"
   },
   "repository": {
     "type": "git",
@@ -67,7 +68,7 @@
     "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
-    "binary-collections": "^2.0.10",
+    "binary-collections": "https://github.com/dimaslanjaka/bin/raw/master/releases/bin.tgz",
     "chai": "^4.3.4",
     "eslint": "^9.39.1",
     "eslint-config-hexo": "^6.0.0",
