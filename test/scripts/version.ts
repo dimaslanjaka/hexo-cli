@@ -6,11 +6,13 @@ import { format } from 'util';
 import packageJson from '../../package.json' with { type: 'json' };
 import rewire from 'rewire';
 import { spawn } from 'hexo-util';
-import { join } from 'path';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
 chai.should();
 
 const cliVersion = packageJson.version;
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function getConsoleLog({ args }: { args: any[] }) {
   return args.map(arr => format(...arr)).join('\n');
