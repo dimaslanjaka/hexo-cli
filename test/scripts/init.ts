@@ -13,7 +13,7 @@ const assetDir = join(__dirname, '../../assets');
 
 describe('init', () => {
   const baseDir = join(__dirname, 'init_test');
-  const initModule = rewire('../../dist/console/init');
+  const initModule = rewire(join(__dirname, '../../dist/console/init.cjs'));
   const hexo = new Context(baseDir, { silent: true });
   const init = initModule.bind(hexo);
   let assets: string[] = [];

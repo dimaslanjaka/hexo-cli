@@ -3,6 +3,8 @@ import sinon from 'sinon';
 import rewire from 'rewire';
 import ConsoleExtend from '../../lib/extend/console';
 import type Context from '../../lib/context';
+import { join } from 'path';
+
 chai.should();
 
 describe('hexo', () => {
@@ -10,7 +12,7 @@ describe('hexo', () => {
 
   it('run help if no specified command', async () => {
     const spy = sinon.spy();
-    const hexo = rewire('../../dist/hexo');
+    const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
       console_1: {
         default: (ctx: Context) => {
@@ -26,7 +28,7 @@ describe('hexo', () => {
 
   it('run specified command', async () => {
     const spy = sinon.spy();
-    const hexo = rewire('../../dist/hexo');
+    const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
       console_1: {
         default: (ctx: Context) => {
@@ -42,7 +44,7 @@ describe('hexo', () => {
 
   it('run help if specified command not found', async () => {
     const spy = sinon.spy();
-    const hexo = rewire('../../dist/hexo');
+    const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
       console_1: {
         default: (ctx: Context) => {
@@ -58,7 +60,7 @@ describe('hexo', () => {
 
   it('path - number (issue hexo#4334)', async () => {
     let args: Record<string, string>;
-    const hexo = rewire('../../dist/hexo');
+    const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
       find_pkg_1: {
         default: (_cwd: string, _args: { cwd?: string }) => {
@@ -77,7 +79,7 @@ describe('hexo', () => {
 
   it('p - number (issue hexo#4334)', async () => {
     let args: Record<string, string>;
-    const hexo = rewire('../../dist/hexo');
+    const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
       find_pkg_1: {
         default: (_cwd: string, _args: { cwd?: string }) => {
@@ -96,7 +98,7 @@ describe('hexo', () => {
 
   it('slug - number (issue hexo#4334)', async () => {
     let args: Record<string, string>;
-    const hexo = rewire('../../dist/hexo');
+    const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
       find_pkg_1: {
         default: (_cwd: string, _args: { cwd?: string }) => {
@@ -115,7 +117,7 @@ describe('hexo', () => {
 
   it('s - number (issue hexo#4334)', async () => {
     let args: Record<string, string>;
-    const hexo = rewire('../../dist/hexo');
+    const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
       find_pkg_1: {
         default: (_cwd: string, _args: { cwd?: string }) => {
@@ -136,7 +138,7 @@ describe('hexo', () => {
 
   it('should handle HexoNotFoundError properly', () => {
     const spy = sinon.spy();
-    const hexo = rewire('../../dist/hexo');
+    const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     const dummyPath = 'dummy';
     const dummyError = 'test';
     return hexo.__with__({
@@ -167,7 +169,7 @@ describe('hexo', () => {
 
   it('should handle other Error properly', () => {
     const spy = sinon.spy();
-    const hexo = rewire('../../dist/hexo');
+    const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     const dummyPath = 'dummy';
     const dummyError = 'error';
     return hexo.__with__({
@@ -205,7 +207,7 @@ describe('hexo', () => {
     const watchSpy = sinon.spy();
     const exitSpy = sinon.spy();
     const dummyPath = 'dummy';
-    const hexo = rewire('../../dist/hexo');
+    const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     const processSpy = {
       on: process.on,
       emit: process.emit,

@@ -6,6 +6,8 @@ import { format } from 'util';
 import { version as cliVersion } from '../../package.json';
 import rewire from 'rewire';
 import { spawn } from 'hexo-util';
+import { join } from 'path';
+
 chai.should();
 
 function getConsoleLog({ args }: { args: any[] }) {
@@ -13,7 +15,7 @@ function getConsoleLog({ args }: { args: any[] }) {
 }
 
 describe('version', () => {
-  const versionModule = rewire('../../dist/console/version');
+  const versionModule = rewire(join(__dirname, '../../dist/console/version.cjs'));
   const hexo = new Context();
 
   it('show version info', () => {
