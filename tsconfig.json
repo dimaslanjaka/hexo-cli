@@ -13,6 +13,6 @@
     "types": ["node", "mocha"],
     "moduleResolution": "bundler"
   },
-  "include": ["lib/hexo.ts"],
+  "include": ["lib/hexo.ts", "test/**/*.ts"],
   "exclude": ["node_modules"]
 }
