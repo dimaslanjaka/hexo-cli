@@ -8,7 +8,7 @@ on:
   pull_request:
 
 env:
-  default_node_version: 20
+  default_node_version: 24
 
 jobs:
   test:
@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: ["20", "22", "24"]
+        node-version: ["24", "26"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v7
