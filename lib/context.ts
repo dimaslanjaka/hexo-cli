@@ -1,4 +1,4 @@
-import logger from 'hexo-log';
+import { logger } from 'hexo-log';
 import picocolors from 'picocolors';
 import Promise from 'bluebird';
 import ConsoleExtend from './extend/console.js';

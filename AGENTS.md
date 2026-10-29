@@ -14,7 +14,8 @@ Run these from this package directory:
 
 ```bash
 npm install
-npm test              # clean, build, then run Mocha tests
+npm test              # run a single test
+npm run test-all      # run all Mocha tests
 npm run eslint        # lint lib/ and test/
 npm run build         # emit dist/ outputs
 npm run test-cov      # run tests with lcov coverage

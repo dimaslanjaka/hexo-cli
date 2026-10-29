@@ -11,6 +11,7 @@ import versionConsole from './console/version.js';
 import Context from './context.js';
 import findPkg from './find_pkg.js';
 import goodbye from './goodbye.js';
+import packageJson from '../package.json' with { type: 'json' };
 
 class HexoNotFoundError extends Error {}
 
@@ -82,7 +83,7 @@ entry.console = {
   version: versionConsole
 };
 
-entry.version = '__VERSION__';
+entry.version = packageJson.version;
 
 function loadModule(path: string, args: Record<string, any>) {
   return Promise.try(() => {

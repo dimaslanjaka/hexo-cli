@@ -4,7 +4,9 @@ import rewire from 'rewire';
 import ConsoleExtend from '../../lib/extend/console';
 import type Context from '../../lib/context';
 import { join } from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = fileURLToPath(import.meta.url);
 chai.should();
 
 describe('hexo', () => {

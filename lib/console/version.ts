@@ -2,6 +2,7 @@ import BlueBirdPromise from 'bluebird';
 import { spawn } from 'hexo-util';
 import os from 'os';
 import type Context from '../context.js';
+import packageJson from '../../package.json' with { type: 'json' };
 
 async function versionConsole(this: Context) {
   const { versions, platform } = process;
@@ -11,7 +12,8 @@ async function versionConsole(this: Context) {
     console.log('hexo:', this.version);
   }
 
-  console.log('hexo-cli:', '__VERSION__');
+  const cliVersion = packageJson.version;
+  console.log('hexo-cli:', cliVersion);
 
   let osInfo: string | void | Buffer = '';
   if (platform === 'darwin') osInfo = await spawn('sw_vers', '-productVersion');
