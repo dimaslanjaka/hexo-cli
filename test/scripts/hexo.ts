@@ -5,8 +5,6 @@ import ConsoleExtend from '../../lib/extend/console';
 import type Context from '../../lib/context';
 chai.should();
 
-require('chai').should();
-
 describe('hexo', () => {
   const cwd = process.cwd();
 
