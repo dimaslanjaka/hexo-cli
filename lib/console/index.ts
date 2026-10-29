@@ -3,7 +3,7 @@ import helpConsole from './help.js';
 import initConsole from './init.js';
 import versionConsole from './version.js';
 
-export default function (ctx: Context) {
+export default function(ctx: Context) {
   const { console } = ctx.extend;
 
   console.register('help', 'Get help on a command.', {}, helpConsole);

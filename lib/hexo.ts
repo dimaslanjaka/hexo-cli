@@ -41,7 +41,7 @@ function entry(cwd = process.cwd(), args: Record<string, any> | null = null) {
         log.error(err.message);
         log.error(err.stack);
         log.error('Local hexo loading failed in %s', picocolors.magenta(tildify(path)));
-        log.error("Try running: 'rm -rf node_modules && npm install --force'");
+        log.error('Try running: \'rm -rf node_modules && npm install --force\'');
         throw new HexoNotFoundError();
       });
     })
@@ -90,7 +90,7 @@ function loadModule(path: string, args: Record<string, any>) {
     // If `require` is available, try it first. Otherwise fall back to dynamic import.
     if (typeof require !== 'undefined') {
       try {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+
         const Hexo = require(modulePath);
         const Ctor = Hexo && (Hexo.default || Hexo);
         return new Ctor(path, args);
@@ -98,7 +98,7 @@ function loadModule(path: string, args: Record<string, any>) {
         // If the package is an ES module, Node throws ERR_REQUIRE_ESM for require()
         if (err && err.code === 'ERR_REQUIRE_ESM') {
           const url = pathToFileURL(modulePath).href;
-          return import(url).then((mod) => {
+          return import(url).then(mod => {
             const Ctor = mod && (mod.default || mod);
             return new Ctor(path, args);
           });
@@ -110,7 +110,7 @@ function loadModule(path: string, args: Record<string, any>) {
 
     // `require` is not defined (for example, when running as an ES module).
     const url = pathToFileURL(modulePath).href;
-    return import(url).then((mod) => {
+    return import(url).then(mod => {
       const Ctor = mod && (mod.default || mod);
       return new Ctor(path, args);
     });

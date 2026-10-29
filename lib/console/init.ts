@@ -11,16 +11,16 @@ const ASSET_DIR = join(hexoUtils.getDirname(), '../../assets');
 const GIT_REPO_URL = 'https://github.com/hexojs/hexo-starter.git';
 
 interface InitArgs {
-  _: string[];
+  _?: string[];
   install?: boolean;
   clone?: boolean;
 }
 
-async function initConsole(this: Context, args: InitArgs) {
-  args = Object.assign({ install: true, clone: true }, args);
+async function initConsole(this: Context, args?: InitArgs) {
+  args = Object.assign({ install: true, clone: true, _: [] }, args);
 
   const baseDir = this.base_dir;
-  const target = args._[0] ? resolve(baseDir, args._[0]) : baseDir;
+  const target = args._?.[0] ? resolve(baseDir, args._[0]) : baseDir;
   const { log } = this;
 
   if (existsSync(target) && readdirSync(target).length !== 0) {
@@ -97,18 +97,18 @@ function removeGitDir(target: string) {
   const gitDir = join(target, '.git');
 
   return stat(gitDir)
-    .catch((err) => {
+    .catch(err => {
       if (err && err.code === 'ENOENT') return;
       throw err;
     })
-    .then((stats) => {
+    .then(stats => {
       if (stats) {
         return stats.isDirectory() ? rmdir(gitDir) : unlink(gitDir);
       }
     })
     .then(() => readdir(target))
-    .map((path) => join(target, path))
-    .filter((path) => stat(path).then((stats) => stats.isDirectory()))
+    .map(path => join(target, path))
+    .filter(path => stat(path).then(stats => stats.isDirectory()))
     .each(removeGitDir);
 }
 

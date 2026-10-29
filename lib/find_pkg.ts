@@ -17,11 +17,11 @@ function checkPkg(path: string) {
   const pkgPath = join(path, 'package.json');
 
   return readFile(pkgPath)
-    .then((content) => {
+    .then(content => {
       const json = JSON.parse(content as string);
       if (typeof json.hexo === 'object') return path;
     })
-    .catch((err) => {
+    .catch(err => {
       if (err && err.code === 'ENOENT') {
         const parent = dirname(path);
 

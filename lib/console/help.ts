@@ -9,14 +9,15 @@ import type { Callback, Store, Command } from '../types.js';
 const COMPLETION_DIR = join(hexoUtils.getDirname(), '../../completion');
 
 interface HelpArgs {
-  _: string[];
+  _?: string[];
   v?: boolean;
   version?: boolean;
   consoleList?: boolean;
   completion?: string;
 }
 
-function helpConsole(this: Context, args: HelpArgs) {
+function helpConsole(this: Context, args?: HelpArgs) {
+  if (!args) args = { _: [] };
   if (args.v || args.version) {
     return this.call('version');
   } else if (args.consoleList) {
@@ -25,7 +26,7 @@ function helpConsole(this: Context, args: HelpArgs) {
     return printCompletion(args.completion);
   }
 
-  const command = args._[0];
+  const command = args._?.[0];
 
   if (typeof command === 'string' && command !== 'help') {
     const c = this.extend.console.get(command);
@@ -36,7 +37,7 @@ function helpConsole(this: Context, args: HelpArgs) {
 }
 
 function printHelpForCommand(command: string, data: Callback) {
-  const { options } = data;
+  const options = data.options || {};
 
   const desc = options.description || options.desc || data.description || data.desc;
 
@@ -53,7 +54,7 @@ function printHelpForCommand(command: string, data: Callback) {
 
 function printAllHelp(list: Store) {
   const keys = Object.keys(list);
-  const commands = [];
+  const commands: Command[] = [];
   const { length } = keys;
 
   for (let i = 0; i < length; i++) {
@@ -61,7 +62,7 @@ function printAllHelp(list: Store) {
 
     commands.push({
       name: key,
-      desc: list[key].desc
+      desc: list[key].desc || '<no description>'
     });
   }
 
@@ -78,7 +79,7 @@ function printAllHelp(list: Store) {
     { name: '--silent', desc: 'Hide output on console' }
   ]);
 
-  console.log("For more help, you can use 'hexo help [command]' for the detailed information");
+  console.log('For more help, you can use \'hexo help [command]\' for the detailed information');
   console.log('or you can check the docs:', picocolors.underline('https://hexo.io/docs/'));
 
   return Promise.resolve();
@@ -95,7 +96,7 @@ function printList(title: string, list: Command[]) {
     return 0;
   });
 
-  const lengths = list.map((item) => item.name.length);
+  const lengths = list.map(item => item.name.length);
   const maxLen = lengths.reduce((prev, current) => Math.max(prev, current));
 
   let str = `${title}:\n`;
@@ -119,7 +120,7 @@ function printConsoleList(list: Store) {
 }
 
 function printCompletion(type: string) {
-  return readFile(join(COMPLETION_DIR, type)).then((content) => {
+  return readFile(join(COMPLETION_DIR, type)).then(content => {
     console.log(content);
   });
 }
