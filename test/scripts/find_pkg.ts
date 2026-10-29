@@ -2,7 +2,10 @@ import chai from 'chai';
 import { rmdir, writeFile, unlink } from 'hexo-fs';
 import { dirname, join } from 'path';
 import findPkg from '../../lib/find_pkg';
+import { fileURLToPath } from 'url';
+
 const should = chai.should();
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('Find package', () => {
   const baseDir = join(__dirname, 'find_pkg_test');

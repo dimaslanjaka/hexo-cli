@@ -1,12 +1,16 @@
 import chai from 'chai';
 import sinon, { type SinonStub } from 'sinon';
 import { readFile } from 'hexo-fs';
-import { join } from 'path';
+import { dirname, join } from 'path';
 import { format } from 'util';
 import rewire from 'rewire';
 import Context from '../../lib/context';
 import console from '../../lib/console/index';
+import { fileURLToPath } from 'url';
+
 chai.should();
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function getConsoleLog({ args }: { args: any[] }) {
   return args.map(arr => format(...arr)).join('\n');

@@ -1,11 +1,14 @@
 import chai from 'chai';
-import { join } from 'path';
+import { dirname, join } from 'path';
 import { listDir, rmdir, createReadStream } from 'hexo-fs';
 import { createSha1Hash } from 'hexo-util';
 import rewire from 'rewire';
 import Context from '../../lib/context';
+import { fileURLToPath } from 'url';
+
 chai.should();
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const assetDir = join(__dirname, '../../assets');
 
 describe('init', () => {
