@@ -1,0 +1,11 @@
+# codebase-memory-mcp ignore rules (gitignore syntax).
+#
+# Use index mode "full" for this repo. moderate/fast skip directory basenames
+# such as tools, bin, scripts, and fixtures — which would drop
+# bpk-lib/tools (ast-grep + integrity + xtask) and batpak-examples/src/bin.
+#
+# Still omit generated sprawl, fixtures trees, and archive history:
+
+.pnpm-store/
+**/tmp
+**/commit*.txt
