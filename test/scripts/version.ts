@@ -3,12 +3,14 @@ import sinon from 'sinon';
 import Context from '../../lib/context';
 import { platform, release } from 'os';
 import { format } from 'util';
-import { version as cliVersion } from '../../package.json';
+import packageJson from '../../package.json' with { type: 'json' };
 import rewire from 'rewire';
 import { spawn } from 'hexo-util';
 import { join } from 'path';
 
 chai.should();
+
+const cliVersion = packageJson.version;
 
 function getConsoleLog({ args }: { args: any[] }) {
   return args.map(arr => format(...arr)).join('\n');
