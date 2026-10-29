@@ -13,7 +13,7 @@ function getConsoleLog({ args }: { args: any[] }) {
 }
 
 describe('help', () => {
-  const helpModule = rewire('../../dist/console/help');
+  const helpModule = rewire(join(__dirname, '../../dist/console/help.cjs'));
   const hexo = new Context();
 
   console(hexo);
