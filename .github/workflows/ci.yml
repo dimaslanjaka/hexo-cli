@@ -33,11 +33,12 @@ jobs:
             node_modules
             dist
             tmp
+            yarn.lock
           key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
-        run: npm install
+        run: touch yarn.lock && yarn install
       - name: Test
-        run: npm run test
+        run: yarn run test
 
   coverage:
     name: Coverage
@@ -56,11 +57,12 @@ jobs:
             node_modules
             dist
             tmp
+            yarn.lock
           key: ${{ runner.os }}-node-${{env.default_node_version}}-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
-        run: npm install
+        run: touch yarn.lock && yarn install
       - name: Coverage
-        run: npm run test-cov
+        run: yarn run test-cov
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -82,12 +84,13 @@ jobs:
             node_modules
             dist
             tmp
+            yarn.lock
           key: ${{ runner.os }}-node-${{env.default_node_version}}-build-${{ hashFiles('**/package.json') }}
 
       - name: Install Dependencies
-        run: npm install
+        run: touch yarn.lock && yarn install
       - name: Build
-        run: npm run build
+        run: yarn run build
 
   lint:
     name: Lint
@@ -105,9 +108,10 @@ jobs:
             node_modules
             dist
             tmp
+            yarn.lock
           key: ${{ runner.os }}-node-${{env.default_node_version}}-lint-${{ hashFiles('**/package.json') }}
 
       - name: Install Dependencies
-        run: npm install
+        run: touch yarn.lock && yarn install
       - name: Lint
-        run: npm run eslint
+        run: yarn run eslint
