@@ -72,7 +72,9 @@ describe('init', () => {
     assets = files;
   });
 
-  after(async () => await rmDir(baseDir));
+  after(async () => await rmDir(baseDir).catch(() => {}));
+  beforeEach(async () => await rmDir(baseDir).catch(() => {}));
+  afterEach(async () => await rmDir(baseDir).catch(() => {}));
 
   it('current path', () => withoutSpawn(async () => {
     await init({_: []});
