@@ -21,7 +21,7 @@
     "clean": "rimraf dist",
     "eslint": "eslint lib test",
     "pretest": "npm run clean && npm run build",
-    "test": "mocha --require ts-node/register --require scripts/resolve-ts.cjs",
+    "test": "mocha --require ts-node/register --require scripts/resolve-ts.cjs --timeout 60000 --exit",
     "test-all": "npm run test -- test/**/*.ts",
     "test-cov": "nyc --reporter=lcovonly npm run test-all",
     "prepare": "git submodule init && git submodule update && git submodule foreach git pull origin master && husky",
