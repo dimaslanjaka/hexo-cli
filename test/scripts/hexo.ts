@@ -3,10 +3,10 @@ import sinon from 'sinon';
 import rewire from 'rewire';
 import ConsoleExtend from '../../lib/extend/console';
 import type Context from '../../lib/context';
-import { join } from 'path';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
-const __dirname = fileURLToPath(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 chai.should();
 
 describe('hexo', () => {
@@ -16,7 +16,7 @@ describe('hexo', () => {
     const spy = sinon.spy();
     const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
-      console_1: {
+      registerConsole__default: {
         default: (ctx: Context) => {
           ctx.extend.console.register('help', spy);
         }
@@ -32,7 +32,7 @@ describe('hexo', () => {
     const spy = sinon.spy();
     const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
-      console_1: {
+      registerConsole__default: {
         default: (ctx: Context) => {
           ctx.extend.console.register('test', spy);
         }
@@ -48,7 +48,7 @@ describe('hexo', () => {
     const spy = sinon.spy();
     const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
-      console_1: {
+      registerConsole__default: {
         default: (ctx: Context) => {
           ctx.extend.console.register('help', spy);
         }
@@ -64,7 +64,7 @@ describe('hexo', () => {
     let args: Record<string, string>;
     const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
-      find_pkg_1: {
+      findPkg__default: {
         default: (_cwd: string, _args: { cwd?: string }) => {
           args = _args;
           return Promise.resolve();
@@ -83,7 +83,7 @@ describe('hexo', () => {
     let args: Record<string, string>;
     const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
-      find_pkg_1: {
+      findPkg__default: {
         default: (_cwd: string, _args: { cwd?: string }) => {
           args = _args;
           return Promise.resolve();
@@ -102,7 +102,7 @@ describe('hexo', () => {
     let args: Record<string, string>;
     const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
-      find_pkg_1: {
+      findPkg__default: {
         default: (_cwd: string, _args: { cwd?: string }) => {
           args = _args;
           return Promise.resolve();
@@ -121,7 +121,7 @@ describe('hexo', () => {
     let args: Record<string, string>;
     const hexo = rewire(join(__dirname, '../../dist/hexo.cjs'));
     return hexo.__with__({
-      find_pkg_1: {
+      findPkg__default: {
         default: (_cwd: string, _args: { cwd?: string }) => {
           args = _args;
           return Promise.resolve();
@@ -144,11 +144,11 @@ describe('hexo', () => {
     const dummyPath = 'dummy';
     const dummyError = 'test';
     return hexo.__with__({
-      find_pkg_1: {
+      findPkg__default: {
         default: () => Promise.resolve(dummyPath)
       },
       loadModule: () => Promise.reject(new Error(dummyError)),
-      context_1: {
+      Context__default: {
         default: class Context {
           log: { error: typeof spy };
           constructor() {
@@ -162,9 +162,10 @@ describe('hexo', () => {
       // @ts-expect-error
       await hexo(cwd, {_: ['test']});
       spy.args[0][0].should.eql(dummyError);
-      spy.args[1][0].should.eql('Local hexo loading failed in %s');
-      spy.args[1][1].should.eql(`\x1B[35m${dummyPath}\x1B[39m`);
-      spy.args[2][0].should.eql('Try running: \'rm -rf node_modules && npm install --force\'');
+      spy.args[1][0].should.contain(dummyError);
+      spy.args[2][0].should.eql('Local hexo loading failed in %s');
+      spy.args[2][1].should.eql(`\x1B[35m${dummyPath}\x1B[39m`);
+      spy.args[3][0].should.eql('Try running: \'rm -rf node_modules && npm install --force\'');
       process.exitCode?.should.eql(2);
     });
   });
@@ -175,14 +176,14 @@ describe('hexo', () => {
     const dummyPath = 'dummy';
     const dummyError = 'error';
     return hexo.__with__({
-      find_pkg_1: {
+      findPkg__default: {
         default: () => Promise.resolve(dummyPath)
       },
       loadModule: () => Promise.resolve(),
-      console_1: {
+      registerConsole__default: {
         default: () => { /* empty */ }
       },
-      context_1: {
+      Context__default: {
         default: class Context {
           log: { error: typeof spy, fatal: typeof spy };
           constructor() {
@@ -216,15 +217,15 @@ describe('hexo', () => {
       exit: exitSpy
     };
     return hexo.__with__({
-      find_pkg_1: {
+      findPkg__default: {
         default: () => Promise.resolve(dummyPath)
       },
       loadModule: () => Promise.resolve(),
-      console_1: {
+      registerConsole__default: {
         default: () => { /* empty */ }
       },
       process: processSpy,
-      context_1: {
+      Context__default: {
         default: class Context {
           log: { error: typeof spy, fatal: typeof spy, info: typeof spy };
           extend: {
