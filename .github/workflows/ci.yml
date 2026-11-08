@@ -39,6 +39,7 @@ jobs:
             yarn.lock
             .nyc_output
             coverage
+            .yarn
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: touch yarn.lock && yarn install
@@ -68,6 +69,7 @@ jobs:
             yarn.lock
             .nyc_output
             coverage
+            .yarn
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: touch yarn.lock && yarn install
@@ -99,6 +101,7 @@ jobs:
             yarn.lock
             .nyc_output
             coverage
+            .yarn
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: touch yarn.lock && yarn install
@@ -129,6 +132,7 @@ jobs:
             yarn.lock
             .nyc_output
             coverage
+            .yarn
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
 
       - name: Install Dependencies
@@ -158,6 +162,7 @@ jobs:
             yarn.lock
             .nyc_output
             coverage
+            .yarn
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: touch yarn.lock && yarn install
