@@ -5,6 +5,7 @@ on:
     branches:
       - "monorepo"
   pull_request:
+  workflow_dispatch:
 
 env:
   default_node_version: 24
