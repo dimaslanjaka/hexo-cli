@@ -36,6 +36,8 @@ jobs:
             dist
             tmp
             yarn.lock
+            .nyc_output
+            coverage
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: touch yarn.lock && yarn install
@@ -62,6 +64,8 @@ jobs:
             dist
             tmp
             yarn.lock
+            .nyc_output
+            coverage
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: touch yarn.lock && yarn install
@@ -91,6 +95,8 @@ jobs:
             dist
             tmp
             yarn.lock
+            .nyc_output
+            coverage
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: touch yarn.lock && yarn install
@@ -119,6 +125,8 @@ jobs:
             dist
             tmp
             yarn.lock
+            .nyc_output
+            coverage
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
 
       - name: Install Dependencies
@@ -146,6 +154,8 @@ jobs:
             dist
             tmp
             yarn.lock
+            .nyc_output
+            coverage
           key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
       - name: Install Dependencies
         run: touch yarn.lock && yarn install
